@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TboyphantomCryptoWeb</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- DEMO BANNER -->
+  <!-- <div class="demo-banner">⚠ DEMO PLATFORM — No real transactions · No real money · For demonstration only ⚠</div> -->
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Crypto<span>Vault</span></div>
+    <div class="nav-links">
+      <a href="#markets">Markets</a>
+      <a href="#trade">Trade</a>
+      <a href="#giftcards">Gift Cards</a>
+      <a href="#security">Security</a>
+    </div>
+    <button class="nav-cta" onclick="showToast('🚀', 'Demo Mode Active', 'Sign-up is disabled in demo.')">Get
+      Started</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="float-coins" id="floatCoins"></div>
+
+    <div class="hero-badge">Live Demo Platform</div>
+    <h1>Trade Crypto.<br><em>Own the Future.</em></h1>
+    <p class="hero-sub">Buy, sell, and store digital assets with military-grade security. The fastest execution on the
+      market — now in demo mode.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary"
+        onclick="showToast('💰', 'Welcome to CryptoVault Demo!', 'Explore all features below.')">Start Trading
+        Demo</button>
+      <button class="btn-outline" onclick="document.getElementById('markets').scrollIntoView({behavior:'smooth'})">View
+        Markets</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num" id="vol">$0</span>
+        <span class="stat-label">24h Volume</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">180+</span>
+        <span class="stat-label">Cryptocurrencies</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">4.2M+</span>
+        <span class="stat-label">Active Users</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">0.1%</span>
+        <span class="stat-label">Maker Fee</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <!-- MARKETS -->
+  <section class="market-section" id="markets">
+    <div class="market-header reveal">
+      <div>
+        <div class="section-label">Live Markets</div>
+        <h2>Top Cryptocurrencies</h2>
+      </div>
+      <button class="btn-outline" style="font-size:13px;padding:10px 20px" onclick="refreshMarkets()">↻ Refresh</button>
+    </div>
+    <table class="market-table reveal">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Asset</th>
+          <th>Price</th>
+          <th>24h Change</th>
+          <th>Market Cap</th>
+          <th>Volume 24h</th>
+          <th>7d Chart</th>
+        </tr>
+      </thead>
+      <tbody id="marketBody"></tbody>
+    </table>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section style="background:var(--bg);" id="trade">
+    <div class="portfolio-section">
+      <div class="reveal">
+        <div class="section-label">Portfolio</div>
+        <h2>Track Your<br>Wealth in Real‑Time</h2>
+        <p class="section-sub" style="margin-bottom:32px">Watch every asset move. Multi-currency support with live P&L
+          tracking and historical performance.</p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:20px 24px">
+            <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Portfolio Value</div>
+            <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--gold)">$84,291.40</div>
+          </div>
+          <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:20px 24px">
+            <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Today's Gain</div>
+            <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--green)">+$3,241.18
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-chart-wrap reveal">
+        <canvas id="portChart" width="500" height="180"></canvas>
+        <div class="allocation-list" id="allocList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRADE WIDGET -->
+  <section style="background:var(--bg2)">
+    <div class="trade-section">
+      <div class="reveal">
+        <div class="section-label">Instant Trade</div>
+        <h2>Execute Orders<br>in Milliseconds</h2>
+        <p class="section-sub" style="margin-bottom:28px">Our matching engine processes over 1.4 million trades per
+          second. Market, limit, and stop orders available.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:12px">
+          <li style="display:flex;gap:10px;align-items:center;font-size:14px;color:var(--muted)"><span
+              style="color:var(--gold);font-size:18px">⚡</span>Sub-millisecond execution</li>
+          <li style="display:flex;gap:10px;align-items:center;font-size:14px;color:var(--muted)"><span
+              style="color:var(--gold);font-size:18px">🔒</span>Non-custodial cold storage</li>
+          <li style="display:flex;gap:10px;align-items:center;font-size:14px;color:var(--muted)"><span
+              style="color:var(--gold);font-size:18px">📊</span>Advanced charting & indicators</li>
+          <li style="display:flex;gap:10px;align-items:center;font-size:14px;color:var(--muted)"><span
+              style="color:var(--gold);font-size:18px">🌍</span>175+ countries supported</li>
+        </ul>
+      </div>
+      <div class="trade-widget reveal">
+        <div class="trade-tabs">
+          <button class="trade-tab active buy" id="buyTab" onclick="setTradeMode('buy')">Buy</button>
+          <button class="trade-tab sell" id="sellTab" onclick="setTradeMode('sell')">Sell</button>
+        </div>
+        <div class="trade-field">
+          <div class="trade-label">You Pay</div>
+          <div class="trade-input-wrap">
+            <input type="number" value="1000" id="tradeAmount" oninput="updateTrade()" placeholder="0.00">
+            <div class="trade-coin-sel">USD ▾</div>
+          </div>
+        </div>
+        <div class="trade-presets">
+          <button class="preset-btn" onclick="setAmount(100)">$100</button>
+          <button class="preset-btn" onclick="setAmount(500)">$500</button>
+          <button class="preset-btn" onclick="setAmount(1000)">$1K</button>
+          <button class="preset-btn" onclick="setAmount(5000)">$5K</button>
+        </div>
+        <div class="trade-field">
+          <div class="trade-label">You Receive (Est.)</div>
+          <div class="trade-input-wrap">
+            <input type="text" id="receiveAmt" readonly placeholder="0.00000000" style="cursor:default">
+            <div class="trade-coin-sel" id="tradeCoinSel">BTC ▾</div>
+          </div>
+        </div>
+        <div class="trade-summary">
+          <div class="trade-row"><span>Rate</span><span id="tradeRate">—</span></div>
+          <div class="trade-row"><span>Fee (0.1%)</span><span id="tradeFee">—</span></div>
+          <div class="trade-row"><span>Total Cost</span><span id="tradeTotal">—</span></div>
+        </div>
+        <button class="trade-btn" id="tradeBtn"
+          onclick="showToast('✅', 'Demo Trade Submitted!', 'This is a demo — no real funds moved.')">Buy BTC</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section style="background:var(--bg)">
+    <div class="reveal" style="text-align:center;margin-bottom:16px">
+      <div class="section-label">Why CryptoVault</div>
+      <h2>Built for Serious Traders</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <span class="feature-icon">⚡</span>
+        <h3>Ultra-Low Latency</h3>
+        <p>Our co-located servers ensure your orders hit the book before anyone else. Zero lag, always.</p>
+      </div>
+      <div class="feature-card reveal">
+        <span class="feature-icon">🛡️</span>
+        <h3>Cold Vault Storage</h3>
+        <p>98% of assets stored offline in geographically-distributed hardware security modules.</p>
+      </div>
+      <div class="feature-card reveal">
+        <span class="feature-icon">📱</span>
+        <h3>Mobile-First Trading</h3>
+        <p>Full-featured iOS and Android apps with biometric authentication and instant alerts.</p>
+      </div>
+      <div class="feature-card reveal">
+        <span class="feature-icon">🎁</span>
+        <h3>Crypto Gift Cards</h3>
+        <p>Send crypto to anyone instantly with our physical and digital gift card system.</p>
+      </div>
+      <div class="feature-card reveal">
+        <span class="feature-icon">📈</span>
+        <h3>Advanced Analytics</h3>
+        <p>TradingView charts, 100+ indicators, and AI-powered market signals built in.</p>
+      </div>
+      <div class="feature-card reveal">
+        <span class="feature-icon">💳</span>
+        <h3>Crypto Debit Card</h3>
+        <p>Spend your crypto anywhere Visa is accepted. Earn 3% back in Bitcoin on every purchase.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GIFT CARDS -->
+  <section class="giftcards-section" id="giftcards">
+    <div class="giftcards-header reveal" style="text-align:center">
+      <div class="section-label">Gift Cards</div>
+      <h2>Give the Gift of Crypto</h2>
+      <p class="section-sub" style="margin:0 auto">Send digital assets to anyone — no wallet required. Redeem in
+        seconds. Perfect for every occasion.</p>
+    </div>
+
+    <div class="giftcards-grid">
+      <!-- Gold Card -->
+      <div class="gift-card gold-card reveal"
+        onclick="showToast('🥇','Gold Gift Card Selected','$100 crypto gift card — Demo only!')">
+        <div class="card-shine"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div class="card-logo dark">CryptoVault</div>
+          <div class="card-chip"></div>
+        </div>
+        <div>
+          <div class="card-amount dark">$100</div>
+          <div class="card-sub dark">Gold · Bitcoin Gift Card</div>
+        </div>
+        <div class="card-bottom">
+          <span class="card-number dark">•••• •••• •••• 4291</span>
+          <span class="card-valid dark">Valid: Demo</span>
+        </div>
+      </div>
+
+      <!-- Silver Card -->
+      <div class="gift-card silver-card reveal"
+        onclick="showToast('🥈','Silver Gift Card Selected','$250 crypto gift card — Demo only!')">
+        <div class="card-shine"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div class="card-logo light">CryptoVault</div>
+          <div class="card-chip"></div>
+        </div>
+        <div>
+          <div class="card-amount">$250</div>
+          <div class="card-sub">Silver · Ethereum Gift Card</div>
+        </div>
+        <div class="card-bottom">
+          <span class="card-number">•••• •••• •••• 7183</span>
+          <span class="card-valid">Valid: Demo</span>
+        </div>
+      </div>
+
+      <!-- Black Card -->
+      <div class="gift-card black-card reveal"
+        onclick="showToast('⚫','Prestige Card Selected','$500 crypto gift card — Demo only!')">
+        <div class="card-shine"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div class="card-logo light">CryptoVault</div>
+          <div class="card-chip"></div>
+        </div>
+        <div>
+          <div class="card-amount">$500</div>
+          <div class="card-sub">Prestige · Multi-Crypto</div>
+        </div>
+        <div class="card-bottom">
+          <span class="card-number">•••• •••• •••• 0042</span>
+          <span class="card-valid">Valid: Demo</span>
+        </div>
+      </div>
+
+      <!-- Crypto Card -->
+      <div class="gift-card crypto-card reveal"
+        onclick="showToast('🔵','Crypto Card Selected','$50 crypto gift card — Demo only!')">
+        <div class="card-shine"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div class="card-logo light">CryptoVault</div>
+          <div class="card-chip"></div>
+        </div>
+        <div>
+          <div class="card-amount">$50</div>
+          <div class="card-sub">Starter · Any Crypto</div>
+        </div>
+        <div class="card-bottom">
+          <span class="card-number">•••• •••• •••• 3318</span>
+          <span class="card-valid">Valid: Demo</span>
+        </div>
+      </div>
+
+      <!-- Green Card -->
+      <div class="gift-card green-card reveal"
+        onclick="showToast('💚','Green Card Selected','$1000 crypto gift card — Demo only!')">
+        <div class="card-shine"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div class="card-logo light">CryptoVault</div>
+          <div class="card-chip"></div>
+        </div>
+        <div>
+          <div class="card-amount">$1,000</div>
+          <div class="card-sub">Elite · DeFi Bundle</div>
+        </div>
+        <div class="card-bottom">
+          <span class="card-number">•••• •••• •••• 9901</span>
+          <span class="card-valid">Valid: Demo</span>
+        </div>
+      </div>
+
+      <!-- Premium Purple -->
+      <div class="gift-card premium-card reveal"
+        onclick="showToast('💜','Premium Card Selected','Custom amount gift card — Demo only!')">
+        <div class="card-shine"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div class="card-logo light">CryptoVault</div>
+          <div class="card-chip"></div>
+        </div>
+        <div>
+          <div class="card-amount">Custom</div>
+          <div class="card-sub">Premium · Any Amount</div>
+        </div>
+        <div class="card-bottom">
+          <span class="card-number">•••• •••• •••• ????</span>
+          <span class="card-valid">Valid: Demo</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Redeem Section -->
+    <div class="gift-redeem-section reveal">
+      <div class="redeem-info">
+        <h3>Redeem Your Card</h3>
+        <p>Got a CryptoVault gift card? Enter the code below to instantly load crypto into your wallet. Codes never
+          expire.</p>
+        <ul class="redeem-features">
+          <li>Instant delivery to your wallet</li>
+          <li>No fees on gift card redemption</li>
+          <li>Convert to any supported crypto</li>
+          <li>Send to friends or family</li>
+          <li>Available in 180+ countries</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:8px">Enter Gift Code
+        </div>
+        <p style="color:var(--muted);font-size:14px;margin-bottom:16px">Format: XXXX-XXXX-XXXX-XXXX</p>
+        <div class="redeem-input-group">
+          <input class="redeem-input" type="text" id="giftInput" placeholder="CVLT-XXXX-XXXX-DEMO" maxlength="19"
+            oninput="formatGiftCode(this)">
+        </div>
+        <button class="btn-primary" style="width:100%;margin-top:12px;padding:14px" onclick="redeemCard()">Redeem Now
+          →</button>
+        <p style="color:var(--muted);font-size:12px;margin-top:12px;text-align:center">⚠ Demo mode — no real redemption
+          occurs</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECURITY -->
+  <section class="security-section" id="security" style="background:var(--bg)">
+    <div class="reveal">
+      <div class="section-label">Security</div>
+      <h2>Your Assets, Fortress‑Protected</h2>
+      <p class="section-sub">We've never been hacked. We never will be. Here's why.</p>
+    </div>
+    <div class="security-grid" style="margin-top:56px">
+      <div class="sec-card reveal">
+        <div class="sec-icon">🔐</div>
+        <h4>AES-256 Encryption</h4>
+        <p>All data encrypted at rest and in transit using military-grade AES-256 standards.</p>
+      </div>
+      <div class="sec-card reveal">
+        <div class="sec-icon">🧊</div>
+        <h4>Cold Storage</h4>
+        <p>98% of user funds stored in air-gapped, geographically-distributed cold wallets.</p>
+      </div>
+      <div class="sec-card reveal">
+        <div class="sec-icon">👁️</div>
+        <h4>24/7 Monitoring</h4>
+        <p>AI-powered anomaly detection watches every transaction around the clock.</p>
+      </div>
+      <div class="sec-card reveal">
+        <div class="sec-icon">✅</div>
+        <h4>SOC 2 Certified</h4>
+        <p>Independently audited and SOC 2 Type II certified. Full regulatory compliance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="section-label reveal">Get Started</div>
+    <h2 class="reveal" style="font-size:clamp(36px,5vw,64px)">Ready to Trade?</h2>
+    <p class="reveal">Join 4.2 million traders already on CryptoVault. Takes 2 minutes.</p>
+    <div class="reveal" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <button class="btn-primary" style="font-size:18px;padding:16px 48px"
+        onclick="showToast('🎉','Welcome!','This is a demo. No real account created.')">Create Free Account</button>
+      <button class="btn-outline" style="font-size:18px;padding:16px 48px"
+        onclick="showToast('📖','API Docs','API documentation would open in a real deployment.')">API Docs</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">Crypto<span>Vault</span></span>
+        <p>The world's most secure crypto exchange. Trade over 180 digital assets with confidence.</p>
+        <p
+          style="margin-top:12px;font-size:12px;color:var(--muted);background:rgba(245,166,35,0.08);border:1px solid var(--border);border-radius:8px;padding:10px">
+          ⚠ This is a demo website. Not a real exchange. No real funds.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Products</h5>
+        <a href="#">Spot Trading</a>
+        <a href="#">Futures</a>
+        <a href="#">Staking</a>
+        <a href="#">Gift Cards</a>
+        <a href="#">Crypto Card</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#">Blog</a>
+        <a href="#">Press</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <a href="#">Help Center</a>
+        <a href="#">API Docs</a>
+        <a href="#">Status</a>
+        <a href="#">Security</a>
+        <a href="#">Legal</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 CryptoVault Demo. Not a real exchange.</span>
+      <span>Privacy · Terms · Cookies</span>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">
+    <span class="toast-icon" id="toastIcon"></span>
+    <div>
+      <div style="font-weight:600;font-size:14px" id="toastTitle"></div>
+      <div style="color:var(--muted);font-size:13px" id="toastMsg"></div>
+    </div>
+  </div>
+
+  <script src="script.js" type="text/javascript"></script>
+</body>
+</html>
